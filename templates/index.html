@@ -1,0 +1,69 @@
+{% extends "material/base.html" %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/styles.css">
+
+<div class = "app_home">
+    <nav>
+        <div class="nav-wrapper grey darken-4">
+          <a href="#" class="brand-logo center custom-nav-header">  Celiac Informatics</a>
+          <ul id="nav-mobile-home" class="left hide-on-med-and-down">
+            <li><a href="{{url_for('index')}}"><i class="material-icons">home</i></a></li>
+          </ul>
+          <ul id="nav-mobile-directories" class="right hide-on-med-and-down">
+            <li><a href = "#!"><i class="material-icons left">book</i> Publications </a></li>
+            <li><a href = "#!"><i class="material-icons left">assignment_ind</i> About </a></li>
+          </ul>
+        </div>
+    </nav>
+    <div class = "home-content">
+        <div class = "container overview-header">
+          <h4 class = "white-text center overview-text"> Bioactivity & Feature Importance Predictions For Potential Drug-Like Celiac Inhibitors </h4>
+        </div>
+
+        <div class = "container-fluid overview-info"> 
+          <div class="row">
+
+            <div class="col s3 tg2-image-box center-align">
+              <img class="responsive-img materialboxed" width = 200px src="static/imgs/tg2.jpg" alt="Image loading...">
+              <h6 class= "white-text"> The target protein associated with celiac disease mechanisms is transglutaminase 2. </h6>
+            </div>
+        
+            <div class="col s6 text-info-box center-align">
+              <h5 class = "white-text underline directions"> Input Requirements </h5>
+              <p class = "white-text directions"> 1. Enter ONE molecule only </p>
+              <p class = "white-text directions"> 2. Input SMILES notation of an Organic molecule </p>
+              <p class = "white-text directions"> 3. Model will evaluate drug-likeness and bioactivity </p>
+              <div class="row">
+                <form class="col s12" id = "smilesForm" for = "smiles_input" action="{{ url_for('results')}}" method="POST">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">code</i>
+                      <input id = "smiles_input" name="smiles_input" type="text" class="validate" placeholder="" required>
+                      <label for="input_text">Input SMILES</label>
+                    </div>
+                  </div>
+                  <button class="btn waves-effect waves-light" type="submit"> Submit </button>
+                </form>
+              </div>
+              <p class = "white-text error-message"> {{ error_message }} </p>
+            </div>
+
+            <div class="col s3 nothing-box"></div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}
+
+{% block scripts %}
+{{super()}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+<script src = "/static/js/script.js"></script>
+
+{% endblock %}

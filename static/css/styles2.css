@@ -1,0 +1,18 @@
+.custom-nav-header {
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+body {
+    background-color: black;
+}
+
+.home-content {
+    margin-top: 50px;
+}
+
+.input_info {
+    border: 2px solid red;
+}
+
+.activity_info {
+    border: 2px solid red;
+}
