@@ -6,7 +6,7 @@ from rdkit.Chem import AllChem
 from rdkit.Chem import PandasTools
 from rdkit.Chem import Descriptors
 
-import pubchempy as pcp
+#  import pubchempy as pcp
 
 
 def getFingerprints(mol):
@@ -29,13 +29,14 @@ def getDescriptors(mol, missingVal = None):
             traceback.print_exc()
             val = missingVal
         descriptor_dict[nm] = val
-    descriptors_model_input = np.array(pd.DataFrame({'Values': pd.Series(list(descriptor_dict.values()))}))
+    descriptors_df = pd.DataFrame({'Values': pd.Series(list(descriptor_dict.values()))})
+    descriptors_model_input = np.array(descriptors_df)
     descriptors_model_input = descriptors_model_input.reshape((1, 210))
-    return descriptors_model_input
+    return descriptors_model_input, descriptors_df
 
 def getFeatures(mol):
     fing_input, rdkbi = getFingerprints(mol)
-    desc_input = getDescriptors(mol)
+    desc_input = getDescriptors(mol)[0]
     features_model_input = np.concatenate([fing_input, desc_input], axis = 1)
     return features_model_input, rdkbi
 
