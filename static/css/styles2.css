@@ -10,11 +10,11 @@ body {
 }
 
 .input_info {
-    border: 2px solid red;
+    border: 1px solid white;
 }
 
 .activity_info {
-    border: 2px solid red;
+    border: 1px solid white;
 }
 
 .results-header-sub {
@@ -23,4 +23,17 @@ body {
 
 .results-header {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.molinfo-header {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.fing-imp-header {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.sub-image-container {
+    display: flex;
+    justify-content: center;
 }

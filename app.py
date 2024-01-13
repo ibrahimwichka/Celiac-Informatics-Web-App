@@ -57,9 +57,16 @@ def results():
         features, rdkbi = getFeatures(mol)
         activity_result = predict_activity(features)
 
-        get_important_fingerprints(mol, rdkbi)
+        sub_file_names, substructure_numbers = get_important_fingerprints(mol, rdkbi)
         
-        return render_template('results.html', smiles_input=smiles, activity_result = activity_result)
+        return render_template(
+            'results.html', 
+            smiles_input=smiles, 
+            activity_result = activity_result, 
+            sub_file_names = sub_file_names, 
+            substructure_numbers = substructure_numbers
+        )
+    
     return render_template('index.html')
 
 if __name__ == '__main__':

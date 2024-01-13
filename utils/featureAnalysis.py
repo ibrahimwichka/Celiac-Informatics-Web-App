@@ -21,10 +21,13 @@ def get_important_fingerprints(mol, rdkbi):
             substructure = Draw.IPythonConsole.DrawRDKitBit(mol, i ,rdkbi)
             substructure_list.append(substructure)
             substructure_numbers.append(i)
+    sub_file_names = []
     for index, substructure_img in enumerate(substructure_list):
-        sub_file_name = 'sub' + str(substructure_numbers[index]) + '.png' 
+        sub_file_name = 'sub' + str(index) + '.png'
+        sub_file_names.append(sub_file_name)
         sub_path = os.path.join('static', 'imgs', sub_file_name)
         substructure_img.save(sub_path)
+    return sub_file_names, substructure_numbers
 
 
 def graph_important_descriptors(mol, rdkbi):
