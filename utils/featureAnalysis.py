@@ -1,10 +1,14 @@
 import numpy as np
+import os
 import matplotlib.pyplot
 from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Chem import PandasTools
 from rdkit.Chem import Descriptors
 from rdkit.Chem import Draw
+from PIL import Image
+from rdkit.Chem.Draw import IPythonConsole
+
 
 from utils.features import getDescriptors
 
@@ -14,14 +18,17 @@ def get_important_fingerprints(mol, rdkbi):
     substructure_numbers = []
     for i in bit_list:
         if i in rdkbi:
-            nums+=1
-            substructure = Draw.DrawRDKitBit(mol, i ,rdkbi)
+            substructure = Draw.IPythonConsole.DrawRDKitBit(mol, i ,rdkbi)
             substructure_list.append(substructure)
             substructure_numbers.append(i)
-    return
+    for index, substructure_img in enumerate(substructure_list):
+        sub_file_name = 'sub' + str(substructure_numbers[index]) + '.png' 
+        sub_path = os.path.join('static', 'imgs', sub_file_name)
+        substructure_img.save(sub_path)
+
 
 def graph_important_descriptors(mol, rdkbi):
-    all_descriptors = getDescriptors(mol)
+    all_descriptors = getDescriptors(mol)[1]
     important_descriptor_names = [
         "NumSaturatedHeterocycles",
         "NumSaturatedRings",
@@ -34,4 +41,4 @@ def graph_important_descriptors(mol, rdkbi):
         "BCUT2D_MRHI",
         "PEOE_VSA8"
     ]
-    important_descriptors = int(all_descriptors)
+    important_descriptors = [int(all_descriptors[descriptor]) for descriptor in important_descriptor_names]

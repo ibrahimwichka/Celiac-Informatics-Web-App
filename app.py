@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request
 from flask_material import Material
 
 import os
+import uuid
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -20,6 +21,7 @@ from sklearn.model_selection import train_test_split
 from utils.moleculeInputs import check_smiles, check_organic
 from utils.features import getDescriptors, getFingerprints, getFeatures
 from utils.prediction import scale_input, predict_activity
+from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors
 
 app = Flask(__name__)
 Material(app)
@@ -55,6 +57,7 @@ def results():
         features, rdkbi = getFeatures(mol)
         activity_result = predict_activity(features)
 
+        get_important_fingerprints(mol, rdkbi)
         
         return render_template('results.html', smiles_input=smiles, activity_result = activity_result)
     return render_template('index.html')

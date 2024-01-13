@@ -32,7 +32,7 @@ def getDescriptors(mol, missingVal = None):
     descriptors_df = pd.DataFrame({'Values': pd.Series(list(descriptor_dict.values()))})
     descriptors_model_input = np.array(descriptors_df)
     descriptors_model_input = descriptors_model_input.reshape((1, 210))
-    return descriptors_model_input, descriptors_df
+    return descriptors_model_input, descriptor_dict
 
 def getFeatures(mol):
     fing_input, rdkbi = getFingerprints(mol)

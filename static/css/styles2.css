@@ -16,3 +16,11 @@ body {
 .activity_info {
     border: 2px solid red;
 }
+
+.results-header-sub {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.results-header {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

@@ -21,11 +21,16 @@
         <div class = "container-fluid results-content">
             <div class = "row">
               <div class="col s5 input_info center-align">
-                <h6 class = "white-text"> Canonical Smiles: {{ smiles_input }}</h6>
+                <h4 class = "red-text results-header"> BioActivity Report </h4>
+                <h6 class = "white-text results-header-sub"> Canonical Smiles </h6>
+                <h6 class = "white-text results-header-sub"> {{ smiles_input }}</h6>
+                </br>
+                <h6 class = "white-text results-header"> Molecular Structure </h6> 
                 <img src="{{ url_for('static', filename='imgs/molecule.png') }}" width = 300px alt="Molecule Image">
               </div>
-              <div class="col s4 activity_info center-align">
-                <p class = "white-text"> {{ activity_result}} </p>
+              <div class="col s7 activity_info center-align">
+                <h5 class = "white-text"> Fingerprint Feature Importance</h5>
+                <p class = "white-text"> The following are potential import subsutructures relating to the molecule's bioactivity</p>
               </div>
             </div>
         </div>
