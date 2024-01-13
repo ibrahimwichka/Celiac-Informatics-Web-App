@@ -19,4 +19,5 @@ def predict_activity(features):
     prediction = model.predict(features)
     activity_value = int(prediction[0])
     result = "Active" if activity_value == 1 else "Inactive"
-    return result
+    pred_color = "green" if result == "Active" else "red"
+    return result, pred_color

@@ -5,10 +5,16 @@ import os
 import uuid
 import numpy as np
 import pandas as pd
+import io
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import Figure
+from rdkit.Chem.Draw import IPythonConsole
+
 import pickle
 from PIL import Image
-from io import BytesIO
 
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -57,17 +63,20 @@ def results():
         molecule_img.save(img_path)
 
         features, rdkbi = getFeatures(mol)
-        activity_result = predict_activity(features)
+        activity_result, pred_color = predict_activity(features)
 
-        sub_file_names, substructure_numbers, img_width = get_important_fingerprints(mol, rdkbi)
+        sub_file_names, substructure_numbers, img_width, num_of_sub = get_important_fingerprints(mol, rdkbi)
+        graph_important_descriptors(smiles, mol, rdkbi)
         
         return render_template(
             'results.html', 
             smiles_input=smiles, 
             activity_result = activity_result, 
+            pred_color = pred_color, 
             sub_file_names = sub_file_names, 
             substructure_numbers = substructure_numbers,
             img_width = img_width,
+            num_of_sub = num_of_sub
         )
     
     return render_template('index.html')

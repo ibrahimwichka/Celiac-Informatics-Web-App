@@ -13,7 +13,15 @@ body {
     border: 1px solid white;
 }
 
-.activity_info {
+.feature_info {
+    border: 1px solid white;
+}
+
+.fing-info {
+    border: 1px solid white;
+}
+
+.desc-info {
     border: 1px solid white;
 }
 
@@ -36,4 +44,6 @@ body {
 .sub-image-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
+

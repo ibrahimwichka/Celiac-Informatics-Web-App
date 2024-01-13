@@ -21,25 +21,41 @@
         <div class = "container-fluid results-content center-align">
             <h4 class = "white-text results-header"> BioActivity Report </h4>
             <div class = "row">
-              <div class="col s5 input_info center-align">
-                <h5 class = "red-text text-accent-4 molinfo-header"> Molecule Information </h5>
-                <h6 class = "red-text text-accent-4 results-header-sub"> Canonical SMILES </h6>
-                <h6 class = "red-text text-accent-4 results-header-sub"> {{ smiles_input }}</h6>
-                </br>
-                <h6 class = "red-text text-accent-4 results-header-sub"> Molecular Structure </h6> 
-                <img src="/static/imgs/molecule.png" width = 250px alt="Molecule Image">
+              <div class="col s4 input_info center-align">
+                <div class = "container-fluid">
+                  <h5 class = "blue-grey-text text-lighten-3 molinfo-header"> Molecule Information </h5>
+                  <h6 class = "grey-text text-lighten-2 results-header-sub"> Canonical SMILES </h6>
+                  <h6 class = "grey-text text-lighten-2 results-header-sub"> {{ smiles_input }}</h6>
+                  </br>
+                  <h6 class = "grey-text text-lighten-2 results-header-sub"> Molecular Structure </h6> 
+                  <img class = "responsive-img materialboxed" src="/static/imgs/molecule.png" width = 280px alt="Molecule Image">
+                </div>
+                <h6 class = "grey-text text-lighten-2 results-header-sub"> Predicted Bioactivity: <span class="{{pred_color}}-text">{{activity_result}}</span></h6> 
+              </br>
               </div>
-              <div class="col s7 activity_info center-align">
-                <h5 class = "red-text text-accent-4 fing-imp-header"> Fingerprint Feature Importance</h5>
-                <p class = "red-text text-accent-4"> The following are potential important substructures relating to the molecule's bioactivity</p>
-                <div class="sub-image-container">
-                  {% for substructure_number in substructure_numbers %}
-                    {% set i = loop.index0 %}
-                    <figure>
-                      <img src = "/static/imgs/{{sub_file_names[i]}}" width = {{img_width}}px alt = "Substructure{{substructure_number}}">
-                      <figcaption class = "white-text"> Fingerprint {{substructure_numbers[i]}}</figcaption>
-                    </figure>
-                  {% endfor %}
+              <div class="col s8 feature_info center-align">
+                <div class = "container-fluid fing-info">
+                  <h5 class = "blue-grey-text text-lighten-3 fing-imp-header"> Fingerprint Feature Importance</h5>
+                  <h6 class = "grey-text text-lighten-2"> Important substructures relating to the molecule's bioactivity</h6>
+                  <div class="sub-image-container">
+                    {% if num_of_sub != 0 %}
+                      {% for substructure_number in substructure_numbers %}
+                        {% set i = loop.index0 %}
+                        <figure>
+                          <img class = "responsive-img materialboxed" src = "/static/imgs/{{sub_file_names[i]}}" width = {{img_width}}px alt = "Substructure{{substructure_number}}">
+                          <figcaption class = "white-text"> Fingerprint {{substructure_numbers[i]}}</figcaption>
+                        </figure>                    
+                      {% endfor %}
+                    {%else %}
+                      <p class = "grey-text text-lighten-2"> No Substructure Data </p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class = "row">
+                  <div class = "col s6 desc-info">
+                    <h5 class = "blue-grey-text text-lighten-3 fing-imp-header"> Descriptor Feature Importance</h5>
+                    <img class = "responsive-img materialboxed" src = "/static/imgs/descriptor_plot.png" width = 1000px alt = "Could Not Display Graph">
+                  </div>
                 </div>
               </div>
             </div>
