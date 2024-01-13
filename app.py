@@ -47,6 +47,8 @@ def results():
             error_message = message
             return render_template('index.html', error_message = error_message)
         
+        # molecule_name, molecule_cid, molecular_formula = getMoleculeInfo(smiles)
+        
         smiles = Chem.MolToSmiles(mol)
         mol = Chem.MolFromSmiles(smiles)
         
@@ -57,14 +59,15 @@ def results():
         features, rdkbi = getFeatures(mol)
         activity_result = predict_activity(features)
 
-        sub_file_names, substructure_numbers = get_important_fingerprints(mol, rdkbi)
+        sub_file_names, substructure_numbers, img_width = get_important_fingerprints(mol, rdkbi)
         
         return render_template(
             'results.html', 
             smiles_input=smiles, 
             activity_result = activity_result, 
             sub_file_names = sub_file_names, 
-            substructure_numbers = substructure_numbers
+            substructure_numbers = substructure_numbers,
+            img_width = img_width,
         )
     
     return render_template('index.html')

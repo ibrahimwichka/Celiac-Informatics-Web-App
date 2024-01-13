@@ -26,8 +26,8 @@
                 <h6 class = "red-text text-accent-4 results-header-sub"> Canonical SMILES </h6>
                 <h6 class = "red-text text-accent-4 results-header-sub"> {{ smiles_input }}</h6>
                 </br>
-                <h6 class = "red-text text-accent-4 results-header"> Molecular Structure </h6> 
-                <img src="/static/imgs/molecule.png" width = 300px alt="Molecule Image">
+                <h6 class = "red-text text-accent-4 results-header-sub"> Molecular Structure </h6> 
+                <img src="/static/imgs/molecule.png" width = 250px alt="Molecule Image">
               </div>
               <div class="col s7 activity_info center-align">
                 <h5 class = "red-text text-accent-4 fing-imp-header"> Fingerprint Feature Importance</h5>
@@ -36,7 +36,7 @@
                   {% for substructure_number in substructure_numbers %}
                     {% set i = loop.index0 %}
                     <figure>
-                      <img src = "/static/imgs/{{sub_file_names[i]}}" width = 100px alt = "Substructure{{substructure_number}}">
+                      <img src = "/static/imgs/{{sub_file_names[i]}}" width = {{img_width}}px alt = "Substructure{{substructure_number}}">
                       <figcaption class = "white-text"> Fingerprint {{substructure_numbers[i]}}</figcaption>
                     </figure>
                   {% endfor %}

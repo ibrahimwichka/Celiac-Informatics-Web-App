@@ -27,7 +27,13 @@ def get_important_fingerprints(mol, rdkbi):
         sub_file_names.append(sub_file_name)
         sub_path = os.path.join('static', 'imgs', sub_file_name)
         substructure_img.save(sub_path)
-    return sub_file_names, substructure_numbers
+    if len(substructure_numbers) < 4:
+        img_width = 200
+    elif len(substructure_numbers < 7):
+        img_width = 125
+    elif len(substructure_numbers) < 11:
+        img_width = 100
+    return sub_file_names, substructure_numbers, img_width
 
 
 def graph_important_descriptors(mol, rdkbi):
