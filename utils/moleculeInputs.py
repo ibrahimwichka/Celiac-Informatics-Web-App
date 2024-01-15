@@ -5,5 +5,5 @@ def check_smiles(mol, smiles):
 
 def check_organic(mol, smiles):
     if 'C' not in smiles:
-        return False, "Invalid input (Molecule is inorganic) " + str(smiles)
+        return False, "Invalid input (Inorganic): " + str(smiles)
     return True, ""

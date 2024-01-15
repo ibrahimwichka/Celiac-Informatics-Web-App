@@ -17,14 +17,19 @@ from matplotlib.pyplot import Figure
 from utils.features import getDescriptors
 
 def get_important_fingerprints(mol, rdkbi):
-    bit_list = [495, 433, 382, 338, 350, 193, 74, 417, 263, 308]
+    bit_list = [495, 433, 382, 338, 350, 193, 74, 417, 263]
+    bit_keys = ["green", "red", "green", "red", "red", "green", "green", "grey", "green"]
     substructure_list = []
     substructure_numbers = []
+    key_colors = []
     for i in bit_list:
         if i in rdkbi:
             substructure = Draw.IPythonConsole.DrawRDKitBit(mol, i ,rdkbi)
             substructure_list.append(substructure)
             substructure_numbers.append(i)
+            key_colors.append("green") if i in [495, 382, 193, 74, 263] else None
+            key_colors.append("red") if i in [433, 338, 350] else None
+            key_colors.append("grey") if i == 417 else None
     sub_file_names = []
     for index, substructure_img in enumerate(substructure_list):
         sub_file_name = 'sub' + str(index) + '.png'
@@ -35,7 +40,7 @@ def get_important_fingerprints(mol, rdkbi):
         img_width = 150
     elif len(substructure_numbers) < 11:
         img_width = 90
-    return sub_file_names, substructure_numbers, img_width, len(substructure_numbers)
+    return sub_file_names, substructure_numbers, img_width, len(substructure_numbers), key_colors
 
 
 def graph_important_descriptors(smiles, mol, rdkbi):

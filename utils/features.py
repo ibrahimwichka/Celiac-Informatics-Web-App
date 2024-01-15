@@ -6,8 +6,6 @@ from rdkit.Chem import AllChem
 from rdkit.Chem import PandasTools
 from rdkit.Chem import Descriptors
 
-# import pubchempy as pcp
-
 
 def getFingerprints(mol):
     rdkbi = {}
@@ -41,10 +39,6 @@ def getFeatures(mol):
     return features_model_input, rdkbi
 
 
-# def getMoleculeInfo(smiles):
-#     pcp_compounds = pcp.get_compounds(smiles, 'smiles')
-#     molecule = pcp_compounds[0]
-#     molecule_name = molecule.to_dict()['title']
-#     molecule_cid = molecule.cid
-#     molecular_formula = molecule.to_dict()['molecular_formula']
-#     return molecule_name, molecule_cid, molecular_formula
+def getMoleculeInfo(mol):
+    molecular_formula = Chem.rdMolDescriptors.CalcMolFormula(mol)
+    return molecular_formula

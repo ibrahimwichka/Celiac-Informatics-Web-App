@@ -47,3 +47,12 @@ body {
     flex-wrap: wrap;
 }
 
+.fing_keys {
+    display: flex;
+    justify-content: center;
+}
+
+.fing_keys p {
+    margin: 0 10px;
+    padding: 10px;
+}

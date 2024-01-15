@@ -25,7 +25,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 from utils.moleculeInputs import check_smiles, check_organic
-from utils.features import getDescriptors, getFingerprints, getFeatures
+from utils.features import getDescriptors, getFingerprints, getFeatures, getMoleculeInfo
 from utils.prediction import scale_input, predict_activity
 from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors
 
@@ -53,10 +53,11 @@ def results():
             error_message = message
             return render_template('index.html', error_message = error_message)
         
-        # molecule_name, molecule_cid, molecular_formula = getMoleculeInfo(smiles)
         
         smiles = Chem.MolToSmiles(mol)
         mol = Chem.MolFromSmiles(smiles)
+
+        molecular_formula = getMoleculeInfo(mol)
         
         molecule_img = Draw.MolToImage(mol)
         img_path = os.path.join('static', 'imgs', 'molecule.png')
@@ -65,7 +66,7 @@ def results():
         features, rdkbi = getFeatures(mol)
         activity_result, pred_color = predict_activity(features)
 
-        sub_file_names, substructure_numbers, img_width, num_of_sub = get_important_fingerprints(mol, rdkbi)
+        sub_file_names, substructure_numbers, img_width, num_of_sub, key_colors = get_important_fingerprints(mol, rdkbi)
         graph_important_descriptors(smiles, mol, rdkbi)
         
         return render_template(
@@ -76,7 +77,9 @@ def results():
             sub_file_names = sub_file_names, 
             substructure_numbers = substructure_numbers,
             img_width = img_width,
-            num_of_sub = num_of_sub
+            num_of_sub = num_of_sub,
+            molecular_formula = molecular_formula,
+            key_colors = key_colors
         )
     
     return render_template('index.html')
