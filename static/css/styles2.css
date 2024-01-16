@@ -25,8 +25,20 @@ body {
     border: 1px solid white;
 }
 
+.druglike-info {
+    border: 1px solid white;
+}
+
+.drug-like-viol{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+}
+
 .results-header-sub {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .results-header {
@@ -54,5 +66,16 @@ body {
 
 .fing_keys p {
     margin: 0 10px;
-    padding: 10px;
+    padding: 18px;
+}
+
+.drug-like-stuff, .drug-like-viol {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.hyperlink-rule{
+    font-size: 15px;
+    text-decoration: underline;
 }

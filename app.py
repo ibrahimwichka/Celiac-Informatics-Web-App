@@ -28,6 +28,7 @@ from utils.moleculeInputs import check_smiles, check_organic
 from utils.features import getDescriptors, getFingerprints, getFeatures, getMoleculeInfo
 from utils.prediction import scale_input, predict_activity
 from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors
+from utils.drugLikeness import lipinski_report, muegge_report, ghose_report, veber_report, egan_report, check_num_violations
 
 app = Flask(__name__)
 Material(app)
@@ -63,11 +64,28 @@ def results():
         img_path = os.path.join('static', 'imgs', 'molecule.png')
         molecule_img.save(img_path)
 
+        lipinski, color_lip = lipinski_report(smiles)
+        muegge, color_mue = muegge_report(smiles)
+        ghose, color_gho = ghose_report(smiles)
+        veber, color_veb = veber_report(smiles)
+        egan, color_eg = egan_report(smiles)
+        violation_report, viol_report_color = check_num_violations(smiles)
+
         features, rdkbi = getFeatures(mol)
         activity_result, pred_color = predict_activity(features)
 
-        sub_file_names, substructure_numbers, img_width, num_of_sub, key_colors = get_important_fingerprints(mol, rdkbi)
-        graph_important_descriptors(smiles, mol, rdkbi)
+        if viol_report_color == "red":
+            activity_result = "Molecule is not Drug-Like"
+            num_of_sub = 0
+            sub_file_names = 0
+            substructure_numbers = 0
+            img_width = 0
+            key_colors = 0
+            isGraph = False
+        else:
+            sub_file_names, substructure_numbers, img_width, num_of_sub, key_colors = get_important_fingerprints(mol, rdkbi)
+            graph_important_descriptors(smiles, mol, rdkbi)
+            isGraph = True
         
         return render_template(
             'results.html', 
@@ -79,7 +97,20 @@ def results():
             img_width = img_width,
             num_of_sub = num_of_sub,
             molecular_formula = molecular_formula,
-            key_colors = key_colors
+            key_colors = key_colors,
+            lipinski = lipinski,
+            muegge = muegge,
+            ghose = ghose,
+            veber = veber,
+            egan = egan,
+            color_lip = color_lip,
+            color_mue = color_mue,
+            color_gho = color_gho,
+            color_veb = color_veb,
+            color_eg = color_eg,
+            violation_report = violation_report,
+            viol_report_color = viol_report_color,
+            isGraph = isGraph
         )
     
     return render_template('index.html')
