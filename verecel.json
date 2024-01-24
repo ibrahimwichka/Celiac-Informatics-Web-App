@@ -1,14 +1,35 @@
 {
+    "version": 2,
     "builds": [
-        {
-            "src": "app.py",
-            "use": "@vercel/python"
-        }
+      {
+        "src": "app.py",
+        "use": "@now/python"
+      }
     ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/app.py"
-        }
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": "/templates/(.*)",
+        "dest": "/templates/$1"
+      },
+      {
+        "src": "/utils/(.*)",
+        "dest": "/utils/$1"
+      },
+      {
+        "src": "/data/(.*)",
+        "dest": "/data/$1"
+      },
+      {
+        "src": "/models/(.*)",
+        "dest": "/models/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/app.py"
+      }
     ]
 }
