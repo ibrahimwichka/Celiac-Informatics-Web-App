@@ -27,9 +27,9 @@ def get_important_fingerprints(mol, rdkbi):
             substructure = Draw.IPythonConsole.DrawRDKitBit(mol, i ,rdkbi)
             substructure_list.append(substructure)
             substructure_numbers.append(i)
-            key_colors.append("green") if i in [193, 74, 263] else None
+            key_colors.append("green") if i in [495, 382, 193, 74, 263] else None
             key_colors.append("red") if i in [433, 338, 350] else None
-            key_colors.append("grey") if i in [417, 495, 382] else None
+            key_colors.append("grey") if i in [417] else None
     sub_file_names = []
     for index, substructure_img in enumerate(substructure_list):
         sub_file_name = 'sub' + str(index) + '.png'
