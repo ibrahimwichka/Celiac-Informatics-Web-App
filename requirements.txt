@@ -7,3 +7,4 @@ rdkit
 flask
 gunicorn==20.1.0
 Jinja2==3.1.2
+flask_material
