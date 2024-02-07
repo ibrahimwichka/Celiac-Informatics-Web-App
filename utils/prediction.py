@@ -15,7 +15,7 @@ def scale_input(features):
 
 def predict_activity(features):
     features = scale_input(features)
-    model = pickle.load(open('models/celiac_model.pkl', 'rb'))
+    model = pickle.load(open('models/adaboost-model.pkl', 'rb'))
     prediction = model.predict(features)
     activity_value = int(prediction[0])
     result = "Active" if activity_value == 1 else "Inactive"
