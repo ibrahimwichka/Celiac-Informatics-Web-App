@@ -24,7 +24,7 @@ def lipinski_report(smiles):
     
     if len(violations) > 1:
         return str("Failed: " + ", ".join(violations)), "red"
-    if len(violations == 1):
+    if len(violations) == 1:
         return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
@@ -49,13 +49,13 @@ def ghose_report(smiles):
     if mr < 40 or mr >130 :
         violations.append("MR not in [40, 130]")
 
-    num_at = mol.GetNumAtoms(mol)
+    num_at = mol.GetNumAtoms()
     if num_at < 20 or num_at > 70:
         violations.append("NumAtoms not in [20,70]")
 
-    if violations > 1:
+    if len(violations) > 1:
         return str("Failed: " + ", ".join(violations)), "red"
-    if len(violations == 1):
+    if len(violations) == 1:
         return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
@@ -96,9 +96,9 @@ def egan_report(smiles):
     if logp >= 5.88:
         violations.append("LogP > 5.6")
 
-    if violations > 1:
+    if len(violations) > 1:
         return str("Failed: " + ", ".join(violations)), "red"
-    if len(violations == 1):
+    if len(violations) == 1:
         return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
@@ -149,9 +149,9 @@ def muegge_report(smiles):
     if hbd > 5:
         violations.append("HBD > 5")
 
-    if violations > 1:
+    if len(violations) > 1:
         return str("Failed: " + ", ".join(violations)), "red"
-    if len(violations == 1):
+    if len(violations) == 1:
         return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 

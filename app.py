@@ -23,6 +23,7 @@ from rdkit.Chem import Draw
 from rdkit.Chem import Descriptors
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from rdkit.Chem import Crippen
 
 from utils.moleculeInputs import check_smiles, check_organic
 from utils.features import getDescriptors, getFingerprints, getFeatures, getMoleculeInfo
