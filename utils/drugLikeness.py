@@ -150,9 +150,9 @@ def check_num_violations(smiles):
     num_of_violations = sum("Failed" in report(smiles)[0] for report in [lipinski_report, egan_report, muegge_report, ghose_report, veber_report])
     if num_of_violations == 1:
         return "Only 1 violation: Molecule is likely drug-like", "green" 
-    if num_of_violations == 2:
-        return "Only 2 violations: Molecules may be drug-like", "green"
+    if num_of_violations == 2 or num_of_violations == 3:
+        return "Only 2 violations: Molecules may or may not be drug-like", "green"
     if num_of_violations == 0:
         return "0 violations: Molecule is  Drug-Like", "green"
-    if num_of_violations > 2:
+    if num_of_violations > 3:
         return str(str(num_of_violations) + " violations: Molecule is NOT drug-like"), "red"
