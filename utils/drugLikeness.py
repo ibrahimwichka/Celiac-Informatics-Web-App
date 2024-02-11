@@ -1,6 +1,6 @@
 from rdkit import Chem
 from rdkit.Chem import Descriptors
-
+from rdkit.Chem import Crippen
 def lipinski_report(smiles):
     mol = Chem.MolFromSmiles(smiles)
 
@@ -21,8 +21,10 @@ def lipinski_report(smiles):
     if Descriptors.MolLogP(mol) > 5:
         violations.append("LogP > 5")
     
-    if violations:
+    if len(violations) > 1:
         return str("Failed: " + ", ".join(violations)), "red"
+    if len(violations == 1):
+        return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
 
@@ -42,13 +44,13 @@ def ghose_report(smiles):
     if logp < -0.4 or logp > 5.6:
         violations.append("LogP not in [-0.4, 5.6]")
 
-    hbd = Descriptors.NumHDonors(mol)
-    if hbd > 5:
-        violations.append("HBD > 5")
+    mr = Crippen.MolMR(mol)
+    if mr < 40 or mr >130 :
+        violations.append("MR not in [40, 130]")
 
-    hba = Descriptors.NumHAcceptors(mol)
-    if hba > 10:
-        violations.append("HBA > 10")
+    num_at = mol.GetNumAtoms(mol)
+    if num_at < 20 or num_at > 70:
+        violations.append("NumAtoms not in [20,70]")
 
     if violations:
         return str("Failed: " + ", ".join(violations)), "red"
