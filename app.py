@@ -25,7 +25,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from rdkit.Chem import Crippen
 
-from utils.moleculeInputs import check_smiles, check_organic
+from utils.moleculeInputs import check_smiles, check_organic, check_weight
 from utils.features import getDescriptors, getFingerprints, getFeatures, getMoleculeInfo
 from utils.prediction import scale_input, predict_activity
 from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors
@@ -52,6 +52,11 @@ def results():
         
         isOrganic, message = check_organic(mol, smiles)
         if not isOrganic:
+            error_message = message
+            return render_template('index.html', error_message = error_message)
+            
+        isWeight, message = check_weight(mol, smiles)
+        if not isWeight:
             error_message = message
             return render_template('index.html', error_message = error_message)
         
