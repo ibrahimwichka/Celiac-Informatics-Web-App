@@ -1,6 +1,7 @@
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from rdkit.Chem import Crippen
+
 def lipinski_report(smiles):
     mol = Chem.MolFromSmiles(smiles)
 
@@ -52,8 +53,10 @@ def ghose_report(smiles):
     if num_at < 20 or num_at > 70:
         violations.append("NumAtoms not in [20,70]")
 
-    if violations:
+    if violations > 1:
         return str("Failed: " + ", ".join(violations)), "red"
+    if len(violations == 1):
+        return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
 
@@ -93,8 +96,10 @@ def egan_report(smiles):
     if logp >= 5.88:
         violations.append("LogP > 5.6")
 
-    if violations:
+    if violations > 1:
         return str("Failed: " + ", ".join(violations)), "red"
+    if len(violations == 1):
+        return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
 
@@ -144,17 +149,19 @@ def muegge_report(smiles):
     if hbd > 5:
         violations.append("HBD > 5")
 
-    if violations:
+    if violations > 1:
         return str("Failed: " + ", ".join(violations)), "red"
+    if len(violations == 1):
+        return str("Passed (1 Violation): " + ", ".join(violations)), "green"
     return "Passed", "green"
 
 def check_num_violations(smiles):
     num_of_violations = sum("Failed" in report(smiles)[0] for report in [lipinski_report, egan_report, muegge_report, ghose_report, veber_report])
     if num_of_violations == 1:
-        return "Only 1 violation: Molecule is likely drug-like", "green" 
+        return "Only 1 Fail: Molecule is likely drug-like", "green" 
     if num_of_violations == 2 or num_of_violations == 3:
-        return "Only " + str(str(num_of_violations)) +  " violations: Molecules may or may not be drug-like", "green"
+        return "Only " + str(str(num_of_violations)) +  " Fails: Molecules may or may not be drug-like", "green"
     if num_of_violations == 0:
-        return "0 violations: Molecule is  Drug-Like", "green"
+        return "0 Fails: Molecule is  Drug-Like", "green"
     if num_of_violations > 3:
-        return str(str(num_of_violations) + " violations: Molecule is NOT drug-like"), "red"
+        return str(str(num_of_violations) + " Fails: Molecule is NOT drug-like"), "red"
