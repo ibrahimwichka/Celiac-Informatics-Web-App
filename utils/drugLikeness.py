@@ -160,7 +160,7 @@ def check_num_violations(smiles):
     if num_of_violations == 1:
         return "Only 1 Fail: Molecule is likely drug-like", "green" 
     if num_of_violations == 2 or num_of_violations == 3:
-        return "Only " + str(str(num_of_violations)) +  " Fails: Molecules may or may not be drug-like", "green"
+        return "Only " + str(str(num_of_violations)) +  " Fails: Molecule may or may not be drug-like", "green"
     if num_of_violations == 0:
         return "0 Fails: Molecule is  Drug-Like", "green"
     if num_of_violations > 3:
