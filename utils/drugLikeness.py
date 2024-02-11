@@ -85,7 +85,7 @@ def egan_report(smiles):
 
     tpsa = Descriptors.TPSA(mol)
     if tpsa >= 131.6:
-        violations.append("TPSA >= 150")
+        violations.append("TPSA > 131.6")
 
     logp = Descriptors.MolLogP(mol)
     if logp >= 5.88:
