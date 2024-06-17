@@ -28,8 +28,9 @@ from rdkit.Chem import Crippen
 from utils.moleculeInputs import check_smiles, check_organic, check_weight
 from utils.features import getDescriptors, getFingerprints, getFeatures, getMoleculeInfo
 from utils.prediction import scale_input, predict_activity
-from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors
+from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors, graph_spearman_ranking
 from utils.drugLikeness import lipinski_report, muegge_report, ghose_report, veber_report, egan_report, check_num_violations
+
 
 app = Flask(__name__)
 Material(app)
@@ -79,6 +80,7 @@ def results():
 
         features, rdkbi = getFeatures(mol)
         activity_result, pred_color = predict_activity(features)
+        ic50 = graph_spearman_ranking(smiles, mol)
 
         if viol_report_color == "red":
             activity_result = "Molecule is not Drug-Like"
@@ -116,7 +118,8 @@ def results():
             color_eg = color_eg,
             violation_report = violation_report,
             viol_report_color = viol_report_color,
-            isGraph = isGraph
+            isGraph = isGraph,
+            ic50 = ic50
         )
     
     return render_template('index.html')
