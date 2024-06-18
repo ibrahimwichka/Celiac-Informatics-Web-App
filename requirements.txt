@@ -1,12 +1,12 @@
-pandas
+pandas == 2.0.3
 numpy
 Pillow
 scikit-learn == 1.2.2
 matplotlib
-rdkit
+rdkit == 2023.09.6
 flask
 gunicorn==20.1.0
 Jinja2==3.1.2
 flask_material
 IPython
-catboost
+catboost == 1.2.5
