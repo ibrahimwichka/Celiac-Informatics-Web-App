@@ -79,3 +79,11 @@ body {
     font-size: 15px;
     text-decoration: underline;
 }
+
+th, td {
+    color: #fff; 
+}
+
+.arr {
+    color: white;
+}

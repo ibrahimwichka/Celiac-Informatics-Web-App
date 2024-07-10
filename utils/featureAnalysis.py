@@ -91,24 +91,28 @@ def graph_spearman_ranking(smiles, mol):
     df2 = pd.read_csv('models/data/reg_fing_desc_clean.csv')
     X = df2.iloc[:, :-1].values
     y = df2.iloc[:, -1].values
-    print(y)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 1)
     sc = StandardScaler()
     X_train = sc.fit_transform(X_train)
     df_feat_arr = sc.transform(df_feat_arr)
     model2 = pickle.load(open('models/model2.pkl', 'rb'))
     prediction = model2.predict(df_feat_arr)
-    ic50_val = int(prediction[0])
-    df_sorted = df.sort_values(by=df.columns[0])
+    ic50_val = prediction[0]
+    new_row = pd.DataFrame({df.columns[0]: [ic50_val]})
+    df_with_pred = pd.concat([df, new_row], ignore_index=True)
+    df_sorted = df_with_pred.sort_values(by=df.columns[0])
     df_sorted.reset_index(drop=True, inplace=True)
+    pred_index = df_sorted.index[df_sorted[df.columns[0]] == ic50_val][0]
     plt.figure(figsize=(10, 6))
-    plt.scatter(df_sorted.index, df_sorted[df.columns[0]], color='blue', label='Relative IC50')
+    plt.scatter(df_sorted.index, df_sorted[df.columns[0]], color='blue', label='Relative IC50s of Dataset')
+    plt.scatter(pred_index, ic50_val, color='red', zorder=5, label='Predicted Relative IC50')
     plt.ylabel('Relative IC50 Value [µM]')
     plt.title(smiles)
-    plt.axhline(y=ic50_val, color='red', linestyle='--', label='Relative IC50 of New Molecule')
     plt.xticks([])
     plt.legend()
     plt.tight_layout()
     plt.show()
     plt.savefig('static/imgs/sp_rank.png')
+    filtered_df = df_sorted[(df_sorted[df_sorted.columns[0]] >= ic50_val - 0.1) & (df_sorted[df_sorted.columns[0]] <= ic50_val + 0.1)]
+    return filtered_df[[filtered_df.columns[0]]], filtered_df["Smiles"]
     
