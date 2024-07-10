@@ -80,7 +80,12 @@ def results():
 
         features, rdkbi = getFeatures(mol)
         activity_result, pred_color = predict_activity(features)
-        ic50 = graph_spearman_ranking(smiles, mol)
+        isRanked = False
+        if activity_result == "Active":
+            isRanked =  True
+        ic50_arr, smiles_arr = graph_spearman_ranking(smiles, mol)
+        print(ic50_arr)
+        print(smiles_arr)
 
         if viol_report_color == "red":
             activity_result = "Molecule is not Drug-Like"
@@ -90,6 +95,7 @@ def results():
             img_width = 0
             key_colors = 0
             isGraph = False
+            isRanked = False
         else:
             sub_file_names, substructure_numbers, img_width, num_of_sub, key_colors = get_important_fingerprints(mol, rdkbi)
             graph_important_descriptors(smiles, mol, rdkbi)
@@ -119,7 +125,7 @@ def results():
             violation_report = violation_report,
             viol_report_color = viol_report_color,
             isGraph = isGraph,
-            ic50 = ic50
+            isRanked = isRanked
         )
     
     return render_template('index.html')
