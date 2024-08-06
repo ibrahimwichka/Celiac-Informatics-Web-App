@@ -95,7 +95,7 @@ def graph_spearman_ranking(smiles, mol):
     sc = StandardScaler()
     X_train = sc.fit_transform(X_train)
     df_feat_arr = sc.transform(df_feat_arr)
-    model2 = pickle.load(open('models/model2.pkl', 'rb'))
+    model2 = pickle.load(open('models/REG_catboost.pkl', 'rb'))
     prediction = model2.predict(df_feat_arr)
     ic50_val = prediction[0]
     new_row = pd.DataFrame({df.columns[0]: [ic50_val]})
