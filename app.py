@@ -31,7 +31,7 @@ from utils.prediction import scale_input, predict_activity
 from utils.featureAnalysis import get_important_fingerprints, graph_important_descriptors, graph_spearman_ranking
 from utils.drugLikeness import lipinski_report, muegge_report, ghose_report, veber_report, egan_report, check_num_violations
 
-
+#comment
 app = Flask(__name__)
 Material(app)
 
