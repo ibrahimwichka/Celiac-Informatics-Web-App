@@ -22,6 +22,7 @@ class MLP_Base_For_AdaBoost(MLPClassifier):
         return self._fit(X, y, incremental=(self.warm_start and
                                             hasattr(self, "classes_")))
 
+#init
 def intialize_model():
     base_estimator = MLP_Base_For_AdaBoost(hidden_layer_sizes=(50,), activation='relu', learning_rate_init=0.001, max_iter=1000)
     return AdaBoostClassifier(
