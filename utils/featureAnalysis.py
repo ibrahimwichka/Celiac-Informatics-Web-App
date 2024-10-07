@@ -111,7 +111,6 @@ def graph_spearman_ranking(smiles, mol):
     plt.xticks([])
     plt.legend()
     plt.tight_layout()
-    plt.show()
     plt.savefig('static/imgs/sp_rank.png')
     filtered_df = df_sorted[(df_sorted[df_sorted.columns[0]] >= ic50_val - 0.1) & (df_sorted[df_sorted.columns[0]] <= ic50_val + 0.1)]
     return filtered_df[[filtered_df.columns[0]]], filtered_df["Smiles"]
