@@ -26,7 +26,7 @@ def intialize_model():
     base_estimator = MLP_Base_For_AdaBoost(hidden_layer_sizes=(50,), activation='relu', learning_rate_init=0.001, max_iter=1000)
     return AdaBoostClassifier(
         base_estimator=base_estimator,
-        n_estimators=5,
+        n_estimators=279,
         learning_rate=0.022977463078217686,
         random_state=42
     )
