@@ -1,1 +1,3 @@
-Celiac Informatics: A cheminformatics web app designed to aid ligand-based computational drug discovery for celiac disease
+Celiac Informatics: Project Construction Webpage
+
+Official Releases can be found at https://github.com/Lailabcode
