@@ -3,7 +3,7 @@ from sklearn.ensemble import AdaBoostClassifier
 import numpy as np
 from sklearn.neural_network import MLPClassifier
 
-class MLP_Base_For_AdaBoost(MLPClassifier):
+class CustomMLPClassifier(MLPClassifier):
     def resample(self, X_train, y_train, sample_weight):
 
         sample_weight = sample_weight / sample_weight.sum(dtype=np.float64)
