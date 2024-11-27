@@ -11,3 +11,4 @@ Jinja2==3.1.2
 flask_material
 IPython
 catboost == 1.2.5
+joblib
