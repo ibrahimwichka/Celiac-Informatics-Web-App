@@ -24,9 +24,10 @@ def predict_activity(features):
     
     features = sc.transform(features) 
     
-    model = intialize_model()
-
-    model.fit(X_train, y_train)
+    #model = intialize_model()
+    import joblib
+    model = joblib.load(open('models/celiac_clf.joblib', 'rb'))
+    #model.fit(X_train, y_train)
     prediction = model.predict(features)
 
     activity_value = int(prediction[0])
