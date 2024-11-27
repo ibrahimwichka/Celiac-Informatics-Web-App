@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 import pickle
 import numpy as np
 from sklearn.neural_network import MLPClassifier
-from models.MLP_adaboost import MLP_Base_For_AdaBoost, intialize_model
+from models.MLP_adaboost import CustomMLPClassifier, intialize_model
 
 
 
@@ -24,10 +24,9 @@ def predict_activity(features):
     
     features = sc.transform(features) 
     
-    #model = intialize_model()
+    
     import joblib
     model = joblib.load(open('models/celiac_clf.joblib', 'rb'))
-    #model.fit(X_train, y_train)
     prediction = model.predict(features)
 
     activity_value = int(prediction[0])
